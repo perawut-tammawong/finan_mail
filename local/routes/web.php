@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    echo 'hello';
 });
 
 Route::get('/test', function () {
     //return view('welcome');
-    echo 'hello';
+    return view('welcome');
 });
