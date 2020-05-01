@@ -14,8 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    //return view('welcome');
-    //return view('authen_office_365.authen_office');
-    //return view('authen_office_365.testma');
-    return view('admin.home');
+    return view('welcome');
 });
