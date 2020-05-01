@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5f68fc07b276a7142efb13409f12fd9",
+    "content-hash": "058f43e8e53633487adea7ddd136f489",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2097,6 +2097,43 @@
             ],
             "description": "Microsoft Azure OAuth2 Provider for Laravel Socialite",
             "time": "2017-01-25T09:48:29+00:00"
+        },
+        {
+            "name": "socialiteproviders/microsoft-graph",
+            "version": "v2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Microsoft-Graph.git",
+                "reference": "c75235c63a7569e80893e3beee31f0d64dfb3f69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Microsoft-Graph/zipball/c75235c63a7569e80893e3beee31f0d64dfb3f69",
+                "reference": "c75235c63a7569e80893e3beee31f0d64dfb3f69",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0",
+                "socialiteproviders/manager": "~2.0 || ~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Graph\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Edgerton",
+                    "email": "cjedgerton@gmail.com"
+                }
+            ],
+            "description": "Microsoft Graph OAuth2 Provider for Laravel Socialite",
+            "time": "2019-01-11T19:48:14+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

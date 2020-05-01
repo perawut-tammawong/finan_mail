@@ -60,13 +60,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <!-- importing app scripts (load order is important) -->
-    <script type="text/javascript" src="{{ url('/authConfig.js') }}"></script>
-    <script type="text/javascript" src="{{ url('/graphConfig.js') }}"></script>
-    <script type="text/javascript" src="{{ url('/ui.js') }}"></script>
+    <script type="text/javascript" src="{{ url('/JavaScriptSPA/authConfig.js') }}"></script>
+    <script type="text/javascript" src="{{ url('/JavaScriptSPA/graphConfig.js') }}"></script>
+    <script type="text/javascript" src="{{ url('/JavaScriptSPA/ui.js') }}"></script>
 
     <!-- replace next line with authRedirect.js if you would like to use the redirect flow -->
     <!-- <script type="text/javascript" src="./authRedirect.js"></script>   -->
-    <script type="text/javascript" src="{{ url('/authPopup.js') }}"></script>
-    <script type="text/javascript" src="{{ url('/graph.js') }}"></script>
+    <script type="text/javascript" src="{{ url('/JavaScriptSPA/authPopup.js') }}"></script>
+    <script type="text/javascript" src="{{ url('/JavaScriptSPA/graph.js') }}"></script>
   </body>
 </html>
