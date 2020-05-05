@@ -163,16 +163,7 @@ to get the desired effect
 
     <!-- Main content -->
     <div class="content">
-      <div>
-        <!-- ./col -->
-      </div>
-      <!-- /.row -->
-
-      <!-- Small Box (Stat card) -->
-      <div class="row">
-
-      </div>
-      <!-- /.row -->
+@yield('body')
     </div>
     <!-- /.content -->
   </div>
