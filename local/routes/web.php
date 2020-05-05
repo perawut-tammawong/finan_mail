@@ -15,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     //return view('welcome');
-    return view('admin.home');
+    //return view('admin.home');
+    return view('admin.ucm100.parent');
 });
