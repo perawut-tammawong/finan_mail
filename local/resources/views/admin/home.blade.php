@@ -15,6 +15,12 @@
   <link rel="stylesheet" href="{{ url('/AdminLTE/dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <style>
+  .mousechange:hover {
+    cursor: pointer;
+  }
+  </style>
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -75,6 +81,7 @@ to get the desired effect
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          @yield('nav_slide_bar')
           <li class="nav-header">MULTI LEVEL EXAMPLE</li>
           <li class="nav-item">
             <a href="#" class="nav-link">

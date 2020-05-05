@@ -17,4 +17,12 @@ Route::get('/', function () {
     //return view('welcome');
     //return view('admin.home');
     return view('admin.ucm100.parent');
+    // $get = DB::table('tb_year')->get();
+    // dd($get);
 });
+Route::get('/parent', 'Ucm100Controller@index');
+
+
+
+
+Route::get('/test', 'Ucm100Controller@test');
