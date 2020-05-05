@@ -65,7 +65,18 @@ foreach ($year as $y) {
         <?php $termquery = $term[$y->year]; ?>
         <?php foreach($termquery as $t){ ?>
         <div class="col-md-3 col-sm-6 col-12">
-          <div class="info-box bg-gradient-info">
+          <div class="info-box bg-gradient-<?php if($t->term == 1){
+            echo 'info';
+          }elseif($t->term == 2){
+            echo 'success';
+          }elseif($t->term == 3){
+            echo 'warning';
+          }elseif($t->term == 4){
+            echo 'danger';
+          }else{
+            echo 'Default';
+          }
+          ?>">
             <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
 
             <div class="info-box-content">
@@ -124,11 +135,27 @@ foreach ($year as $y) {
       </button>
     </div>
     <div class="modal-body">
-      <p>One fine body&hellip;</p>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <!-- select -->
+                      <div class="form-group">
+                        <label>ปีการศึกษา</label>
+                        <input type="text" class="form-control" placeholder="Enter ..." disabled>
+                        <label>เลือกภาคการศึกษา</label>
+                        <select class="form-control">
+                          <option ="1">Term 1</option>
+                          <option ="2">Term 2</option>
+                          <option ="3">Term 3</option>
+                          <option ="4">Summer</option>
+                        </select>
+                      </div>
+                    </div>
+
+                  </div>
     </div>
     <div class="modal-footer justify-content-between">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary">Save changes</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+      <button type="button" class="btn btn-primary">ยืนยัน</button>
     </div>
   </div>
   <!-- /.modal-content -->
