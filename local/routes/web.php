@@ -20,7 +20,7 @@ Route::get('/', function () {
     // $get = DB::table('tb_year')->get();
     // dd($get);
 });
-Route::get('/parent', 'Ucm100Controller@index');
+Route::get('/yearmanament', 'Ucm500Controller@index');
 
 
 

@@ -17,7 +17,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="#" class="nav-link">
+      <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addyear">
         <i class="far fa-circle nav-icon"></i>
         <p>เพิ่มข้อมูลปีการศึกษา</p>
       </a>
@@ -39,7 +39,6 @@ All Year
 foreach ($year as $y) {
 ?>
 <br />
-<br />
       <div class="row">
         <div class="col-md-3 col-sm-6 col-12">
           <div class="info-box">
@@ -47,6 +46,11 @@ foreach ($year as $y) {
 
             <div class="info-box-content">
               <span class="info-box-text">ปีการศึกษา  <?php echo $y->year; ?></span>
+              <i class="fas fa-plus mousechange" data-toggle="modal" data-target="#modal-addterm"> เพิ่มภาคการเรียน</i>
+              <!-- <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                  Launch Default Modal
+                </button> -->
+
               <!-- <span class="info-box-number">1,410</span> -->
             </div>
             <!-- /.info-box-content -->
@@ -57,15 +61,15 @@ foreach ($year as $y) {
 
 
       </div>
-      <!-- /.row -->
-
       <div class="row">
+        <?php $termquery = $term[$y->year]; ?>
+        <?php foreach($termquery as $t){ ?>
         <div class="col-md-3 col-sm-6 col-12">
           <div class="info-box bg-gradient-info">
             <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">ภาคเรียนที่ 1</span>
+              <span class="info-box-text">ภาคเรียนที่ <?php echo $t->term; ?>&nbsp;<?php echo $t->description; ?></span>
               <!-- <span class="info-box-number">จำนวนนักเรียน 41,410</span> -->
 
               <div class="progress">
@@ -79,20 +83,59 @@ foreach ($year as $y) {
                 <div class="col-md-3 mousechange"><i class="fas fa-pen"></i>&nbsp;Edit</div>
                 <div class="col-md-3 mousechange"><i class="far fa-trash-alt"></i>&nbsp;Del</div>
               </div>
-
             </div>
-            <!-- /.info-box-content -->
           </div>
-          <!-- /.info-box -->
         </div>
-
-        <!-- /.col -->
-
-      </div>
-      <!-- /.row -->
+    <?php } ?>
+  </div>
 <?php
 }
 ?>
+<div class="modal fade" id="modal-addyear">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">เพิ่มปีการศึกษา</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>One fine body&hellip;</p>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-addterm">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">เพิ่มภาคการเรียน</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>One fine body&hellip;</p>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 
 
