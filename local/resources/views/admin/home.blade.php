@@ -163,7 +163,7 @@ to get the desired effect
 
     <!-- Main content -->
     <div class="content">
-      
+      <div>
         <!-- ./col -->
       </div>
       <!-- /.row -->
