@@ -12,9 +12,9 @@ class Ucm100Controller extends Controller
 {
   // $flights = Ucm100::all();
   // return $flights;
-    public function index()
+    public function index($idyear)
     {
-      echo 'hello';
+      echo 'hello'.$idyear;
     }
 
 

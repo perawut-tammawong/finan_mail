@@ -81,6 +81,19 @@ to get the desired effect
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+         <li class="nav-header">Parent</li>
+         <li class="nav-item">
+           <a href="#" class="nav-link">
+             <i class="fas fa-circle nav-icon"></i>
+             <p>รายชื่อผู้ปกครอง</p>
+           </a>
+         </li>
+         <li class="nav-item">
+           <a href="#" class="nav-link">
+             <i class="fas fa-circle nav-icon"></i>
+             <p>เพิ่มรายชื่อผู้ปกครอง(.csv)</p>
+           </a>
+         </li>
           @yield('nav_slide_bar')
           <li class="nav-header">MULTI LEVEL EXAMPLE</li>
           <li class="nav-item">
