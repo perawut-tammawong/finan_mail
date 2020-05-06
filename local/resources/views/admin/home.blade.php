@@ -215,9 +215,13 @@ to get the desired effect
 <script src="{{ url('/AdminLTE/dist/js/adminlte.js') }}"></script>
 
 <!-- OPTIONAL SCRIPTS -->
-<script src="{{ url('/AdminLTE/plugins/chart.js/Chart.min.js') }}"></script>
-<script src="{{ url('/AdminLTE/dist/js/demo.js') }}"></script>
 <script src="{{ url('/AdminLTE/dist/js/pages/dashboard3.js') }}"></script>
+
+
+
+
+
+
 @yield('javascript_below')
 </body>
 </html>
