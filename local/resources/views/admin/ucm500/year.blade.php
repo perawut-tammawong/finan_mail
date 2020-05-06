@@ -22,6 +22,12 @@
         <p>เพิ่มข้อมูลปีการศึกษา</p>
       </a>
     </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-deleteyear">
+        <i class="far fa-circle nav-icon"></i>
+        <p>ลบข้อมูลปีการศึกษา</p>
+      </a>
+    </li>
   </ul>
 </li>
 @endsection
@@ -46,7 +52,7 @@ foreach ($year as $y) {
 
             <div class="info-box-content">
               <span class="info-box-text">ปีการศึกษา  <?php echo $y->year; ?></span>
-              <i class="fas fa-plus mousechange" data-toggle="modal" data-target="#modal-addterm"> เพิ่มภาคการเรียน</i>
+              <i class="fas fa-plus mousechange" data-toggle="modal" data-target="#modal-addterm" onclick="passToModel(<?php echo $y->year; ?>)"> เพิ่มภาคการเรียน</i>
               <!-- <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
                   Launch Default Modal
                 </button> -->
@@ -91,8 +97,7 @@ foreach ($year as $y) {
               </span>
               <br />
               <div class="row">
-                <div class="col-md-3 mousechange"><i class="fas fa-pen"></i>&nbsp;Edit</div>
-                <div class="col-md-3 mousechange"><i class="far fa-trash-alt"></i>&nbsp;Del</div>
+                <div  data-toggle="modal" data-target="#modal-update_deleteterm" class="col-md-3 mousechange" onclick="passTomodel_delete(<?php echo $y->year; ?>,<?php echo $t->term_id; ?>,<?php echo $t->term; ?>)"><i class="far fa-trash-alt"></i>&nbsp;Del</div>
               </div>
             </div>
           </div>
@@ -112,11 +117,30 @@ foreach ($year as $y) {
       </button>
     </div>
     <div class="modal-body">
-      <p>One fine body&hellip;</p>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <!-- select -->
+                      <div class="form-group">
+                        <label>ปีการศึกษา</label>
+                          <form action="{{ url('/addyearnew') }}" method="get" id="frm_add_year">
+                            <select class="form-control" name="sleYear">
+                              <option value="<?php echo date('Y', strtotime('+1 year')); ?>"><?php echo date('Y', strtotime('+1 year')); ?></option>
+                              <?php
+                              $year_start = 2018;
+                              $year_end = date('Y');
+                              for($i=date('Y');$i>=$year_start;$i--){
+                                echo '<option value="'.$i.'">'.$i.'</option>';
+                              }
+                              ?>
+                            </select>
+                          </form>
+                      </div>
+                    </div>
+                  </div>
     </div>
     <div class="modal-footer justify-content-between">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary">Save changes</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+      <button type="button" class="btn btn-primary" onclick="frm_add_year.submit();">ยืนยัน</button>
     </div>
   </div>
   <!-- /.modal-content -->
@@ -124,6 +148,44 @@ foreach ($year as $y) {
 <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<div class="modal fade" id="modal-deleteyear">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">ลบปีการศึกษา</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <!-- select -->
+                      <div class="form-group">
+                        <label>ปีการศึกษา</label>
+                          <form action="{{ url('/deleteyear') }}" method="get" id="frm_delete_year">
+                            <select class="form-control" name="sleYearDel">
+                              <?php foreach ($year as $y) { ?>
+                                <option value="<?php echo $y->year_id; ?>"><?php echo $y->year; ?></option>';
+                              <?php } ?>
+                            </select>
+                          </form>
+                      </div>
+                    </div>
+                  </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+      <button type="button" class="btn btn-primary" onclick="frm_delete_year.submit();">ยืนยัน</button>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 
 <div class="modal fade" id="modal-addterm">
 <div class="modal-dialog">
@@ -140,21 +202,63 @@ foreach ($year as $y) {
                       <!-- select -->
                       <div class="form-group">
                         <label>ปีการศึกษา</label>
-                        <input type="text" class="form-control" placeholder="Enter ..." disabled>
-                        <label>เลือกภาคการศึกษา</label>
-                        <select class="form-control">
-                          <option ="1">Term 1</option>
-                          <option ="2">Term 2</option>
-                          <option ="3">Term 3</option>
-                          <option ="4">Summer</option>
-                        </select>
+                          <form action="{{ url('/addyear_term') }}" method="get" id="frm_addyear_term">
+                            <input type="hidden" name="txtYear" id="txtYear" value="" />
+                            <input type="text" class="form-control" id="txtDitext" placeholder="Enter ..." disabled>
+                            <label>เลือกภาคการศึกษา</label>
+                            <select class="form-control" name="sleTerm">
+                              <option value="1">Term 1</option>
+                              <option value="2">Term 2</option>
+                              <option value="3">Term 3</option>
+                              <option value="4">Summer</option>
+                            </select>
+                          </form>
                       </div>
                     </div>
                   </div>
     </div>
     <div class="modal-footer justify-content-between">
       <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-      <button type="button" class="btn btn-primary">ยืนยัน</button>
+      <button type="button" class="btn btn-primary" onclick="frm_addyear_term.submit();">ยืนยัน</button>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-update_deleteterm">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">ลบภาคการเรียน</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <!-- select -->
+                      <div class="form-group">
+                        <label>ปีการศึกษา</label>
+                          <form action="{{ url('/deleteyear_term') }}" method="get" id="frm_delete_update_year">
+                            <input type="hidden" name="txtYear_delete" id="txtYear_delete" value="" />
+                            <input type="text" class="form-control" id="txtYear_updatedelete_id" placeholder="Enter ..." disabled>
+                            <label>ภาคเรียน</label>
+                            <input type="hidden" name="txtTerm_id_delete" id="txtTerm_id_delete" value="" />
+                            <input type="hidden" name="txtTerm_delete" id="txtTerm_delete" value="" />
+                            <input type="text" class="form-control" id="txtTerm_updatedelete_id" placeholder="Enter ..." disabled>
+
+                          </form>
+                      </div>
+                    </div>
+                  </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+      <button type="button" class="btn btn-primary" onclick="frm_delete_update_year.submit();">ยืนยัน</button>
     </div>
   </div>
   <!-- /.modal-content -->
@@ -167,4 +271,18 @@ foreach ($year as $y) {
 
 @endsection
 @section('javascript_below')
+<script>
+function passToModel($id){
+     document.getElementById("txtYear").value = $id;
+     document.getElementById("txtDitext").placeholder = $id;
+}
+function passTomodel_delete($year,$term_id,$term){
+    document.getElementById("txtYear_delete").value = $year;
+    document.getElementById("txtYear_updatedelete_id").placeholder = $year;
+    document.getElementById("txtTerm_id_delete").value = $term_id;
+    document.getElementById("txtTerm_delete").value = $term;
+    document.getElementById("txtTerm_updatedelete_id").placeholder = $term;
+}
+</script>
+
 @endsection

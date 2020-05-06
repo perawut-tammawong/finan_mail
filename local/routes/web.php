@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,9 +19,10 @@ Route::get('/', function () {
     // $get = DB::table('tb_year')->get();
     // dd($get);
 });
-Route::get('/yearmanament', 'Ucm500Controller@index');
+Route::get('yearmanament', 'Ucm500Controller@index');
+Route::get('addyearnew', 'Ucm500Controller@addyearnew');
+Route::get('deleteyear', 'Ucm500Controller@deleteyear');
+Route::get('addyear_term','Ucm500Controller@addyear_term');
+Route::get('deleteyear_term','Ucm500Controller@deleteyear_term');
 
-
-
-
-Route::get('/test', 'Ucm100Controller@test');
+Route::get('year/{idyear}', 'Ucm100Controller@index');
