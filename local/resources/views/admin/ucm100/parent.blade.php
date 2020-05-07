@@ -49,7 +49,7 @@ List Parent
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="example2" class="table table-bordered table-striped">
               <thead>
               <tr>
                 <th>Rendering engine</th>
@@ -60,6 +60,20 @@ List Parent
               </tr>
               </thead>
               <tbody>
+              <tr>
+                <td>Other browsers</td>
+                <td>All others</td>
+                <td>-</td>
+                <td>-</td>
+                <td>U</td>
+              </tr>
+              <tr>
+                <td>Other browsers</td>
+                <td>All others</td>
+                <td>-</td>
+                <td>-</td>
+                <td>U</td>
+              </tr>
               <tr>
                 <td>Other browsers</td>
                 <td>All others</td>
@@ -105,22 +119,18 @@ function passTomodel_delete($year,$term_id,$term){
 }
 </script> -->
 <!-- DataTables -->
-<script src="{{ url('/AdminLTE/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ url('/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ url('/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ url('/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+
 <!-- AdminLTE App -->
 <script src="{{ url('/AdminLTE/dist/js/adminlte.min.js') }}"></script>
 <script>
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
-      "autoWidth": false,
     });
     $('#example2').DataTable({
       "paging": true,
-      "lengthChange": false,
-      "searching": false,
+      "lengthChange": true,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": false,

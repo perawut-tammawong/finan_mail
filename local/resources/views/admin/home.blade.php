@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="{{ url('/AdminLTE/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- IonIcons -->
   <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ url('/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ url('/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('/AdminLTE/dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
@@ -216,7 +219,10 @@ to get the desired effect
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="{{ url('/AdminLTE/dist/js/pages/dashboard3.js') }}"></script>
-
+<script src="{{ url('/AdminLTE/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url('/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url('/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ url('/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 
 
 
