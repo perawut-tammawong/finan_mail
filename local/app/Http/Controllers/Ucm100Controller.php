@@ -15,6 +15,7 @@ class Ucm100Controller extends Controller
     public function index($idyear)
     {
       echo 'hello'.$idyear;
+      return view('admin.ucm100.parent');
     }
 
 

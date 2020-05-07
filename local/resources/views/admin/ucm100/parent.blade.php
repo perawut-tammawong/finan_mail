@@ -45,18 +45,18 @@ List Parent
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">DataTable with default features</h3>
+            <h3 class="card-title">รายชื่อผู้ปกครอง</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
             <table id="example2" class="table table-bordered table-striped">
               <thead>
               <tr>
-                <th>Rendering engine</th>
-                <th>Browser</th>
-                <th>Platform(s)</th>
-                <th>Engine version</th>
-                <th>CSS grade</th>
+                <th>รหัสบัญชีผู้ปกครอง</th>
+                <th>ชื่อ</th>
+                <th>นามสกุล</th>
+                <th>อีเมลล์ที่สามารถส่งถึง</th>
+                <th>อีเมลล์ที่ต้องการให้ทราบ</th>
               </tr>
               </thead>
               <tbody>
@@ -82,15 +82,6 @@ List Parent
                 <td>U</td>
               </tr>
               </tbody>
-              <tfoot>
-              <tr>
-                <th>Rendering engine</th>
-                <th>Browser</th>
-                <th>Platform(s)</th>
-                <th>Engine version</th>
-                <th>CSS grade</th>
-              </tr>
-              </tfoot>
             </table>
           </div>
           <!-- /.card-body -->
