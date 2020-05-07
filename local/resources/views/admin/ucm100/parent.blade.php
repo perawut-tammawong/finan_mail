@@ -52,35 +52,37 @@ List Parent
             <table id="example2" class="table table-bordered table-striped">
               <thead>
               <tr>
-                <th>รหัสบัญชีผู้ปกครอง</th>
-                <th>ชื่อ</th>
-                <th>นามสกุล</th>
-                <th>อีเมลล์ที่สามารถส่งถึง</th>
-                <th>อีเมลล์ที่ต้องการให้ทราบ</th>
+                <th>รหัสบัญชีผู้ปกครอง<br /> Express customer</th>
+                <th>ชื่อ<br />Name</th>
+                <th>นามสกุล<br />Surname</th>
+                <th>อีเมลล์ที่สามารถส่งถึง<br />Email-To</th>
+                <th>อีเมลล์ที่ต้องการให้ทราบ<br />Email-CC</th>
+                <th >แก้ไข<br />Edit</th>
+                <th>เวลาแก้ไข<br />Update At</th>
+                <th>เวลาสร้างข้อมูล<br />Create At</th>
               </tr>
               </thead>
               <tbody>
+              <?php foreach($parent as $p){ ?>
               <tr>
-                <td>Other browsers</td>
-                <td>All others</td>
-                <td>-</td>
-                <td>-</td>
-                <td>U</td>
+                <td>{{ $p->express_customer_id }}</td>
+                <td>{{ $p->name }}</td>
+                <td>{{ $p->sur_name }}</td>
+                <td>{{ $p->email_to_addaddress }}</td>
+                <td>{{ $p->email_cc_addCC }}</td>
+                <td>
+                  <div class="form-group">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                      <label class="custom-control-label mousechange" for="customSwitch1"></label>
+                      <i class="fas fa-edit mousechange"></i>&nbsp;&nbsp;
+                      <i class="far fa-trash-alt mousechange"></i></div></td>
+                    </div>
+                  </div>
+                <td>{{ $p->update_at }}</td>
+                <td>{{ $p->create_at }}</td>
               </tr>
-              <tr>
-                <td>Other browsers</td>
-                <td>All others</td>
-                <td>-</td>
-                <td>-</td>
-                <td>U</td>
-              </tr>
-              <tr>
-                <td>Other browsers</td>
-                <td>All others</td>
-                <td>-</td>
-                <td>-</td>
-                <td>U</td>
-              </tr>
+            <?php } ?>
               </tbody>
             </table>
           </div>
@@ -93,6 +95,8 @@ List Parent
     <!-- /.row -->
   </section>
   <!-- /.content -->
+
+  
 
 @endsection
 @section('javascript_below')
@@ -112,7 +116,6 @@ function passTomodel_delete($year,$term_id,$term){
 <!-- DataTables -->
 
 <!-- AdminLTE App -->
-<script src="{{ url('/AdminLTE/dist/js/adminlte.min.js') }}"></script>
 <script>
   $(function () {
     $("#example1").DataTable({

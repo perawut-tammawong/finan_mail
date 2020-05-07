@@ -92,9 +92,9 @@ to get the desired effect
            </a>
          </li>
          <li class="nav-item">
-           <a href="#" class="nav-link">
+           <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addparent">
              <i class="fas fa-circle nav-icon"></i>
-             <p>เพิ่มรายชื่อผู้ปกครอง(.csv)</p>
+             <p>เพิ่มรายชื่อผู้ปกครอง</p>
            </a>
          </li>
           @yield('nav_slide_bar')
@@ -225,9 +225,50 @@ to get the desired effect
 <script src="{{ url('/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 
 
-
-
-
 @yield('javascript_below')
+
+<div class="modal fade" id="modal-addparent">
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">เพิ่มชื่อผู้ปกครอง</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <!-- select -->
+                      <div class="form-group">
+                        <label>กรุณากรอกข้อมูลให้ครบ</label>
+                          <form action="{{ url('/addparent') }}" method="get" id="frm_add_parent">
+                            <select class="form-control" name="sleParent">
+                              <option value="<?php echo date('Y', strtotime('+1 year')); ?>"><?php echo date('Y', strtotime('+1 year')); ?></option>
+                              <?php
+                              // $year_start = 2018;
+                              // $year_end = date('Y');
+                              // for($i=date('Y');$i>=$year_start;$i--){
+                              //   echo '<option value="'.$i.'">'.$i.'</option>';
+                              // }
+                              ?>
+                            </select>
+                          </form>
+                      </div>
+                    </div>
+                  </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+      <button type="button" class="btn btn-primary" onclick="frm_add_year.submit();">ยืนยัน</button>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
 </body>
 </html>

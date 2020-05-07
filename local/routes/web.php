@@ -26,4 +26,4 @@ Route::get('deleteyear', 'Ucm500Controller@deleteyear');
 Route::get('addyear_term','Ucm500Controller@addyear_term');
 Route::get('deleteyear_term','Ucm500Controller@deleteyear_term');
 
-Route::get('parentmanament/{idyear}', 'Ucm100Controller@index');
+Route::get('parentmanament', 'Ucm100Controller@index');
