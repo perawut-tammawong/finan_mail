@@ -34,9 +34,6 @@
 @section('head')
 Management Parent
 @endsection
-@section('topic')
-List Parent
-@endsection
 @section('body')
 
   <!-- Main content -->
@@ -206,6 +203,7 @@ function parent_update_id($id){
                //console.log(result['is_enable']);
                if(result['is_enable'] == "0") {
                  $(document).Toasts('create', {
+                   class: 'bg-warning',
                    title: 'อัพเดต',
                    autohide: true,
                    delay: 900,
@@ -214,6 +212,7 @@ function parent_update_id($id){
                  })
                }else{
                  $(document).Toasts('create', {
+                   class: 'bg-info',
                    title: 'อัพเดต',
                    autohide: true,
                    delay: 900,

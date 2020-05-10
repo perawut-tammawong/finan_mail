@@ -31,3 +31,5 @@ Route::get('addparent', 'Ucm100Controller@addparent');
 Route::get('editparent', 'Ucm100Controller@editparent');
 Route::get('deleteparent', 'Ucm100Controller@deleteparent');
 Route::get('update_enable', 'Ucm100Controller@update_enable');
+
+Route::get('studentmanagement/{idterm}', 'Ucm200Controller@index');

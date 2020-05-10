@@ -84,20 +84,73 @@ to get the desired effect
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-         <li class="nav-header">Parent</li>
-         <li class="nav-item">
-           <a href="#" class="nav-link">
-             <i class="fas fa-circle nav-icon"></i>
-             <p>รายชื่อผู้ปกครอง</p>
-           </a>
-         </li>
-         <li class="nav-item">
-           <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addparent">
-             <i class="fas fa-circle nav-icon"></i>
-             <p>เพิ่มรายชื่อผู้ปกครอง</p>
-           </a>
-         </li>
-          @yield('nav_slide_bar')
+         <li class="nav-header"></li>
+         <ul class="nav nav-treeview">
+           <li class="nav-item">
+             <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addparent">
+               <i class="fas fa-circle nav-icon"></i>
+               <p>เพิ่มรายชื่อผู้ปกครอง</p>
+             </a>
+           </li>
+        </ul>
+
+        <li class="nav-header">Parent รายชื่อผู้ปกครอง</li>
+        <li class="nav-item">
+          <a href="{{ url('parentmanament') }}" class="nav-link">
+            <i class="fas fa-circle nav-icon"></i>
+            <p>รายชื่อผู้ปกครอง</p>
+          </a>
+        </li>
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-circle"></i>
+            <p>
+              จัดการรายชื่อ
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="#" class="nav-link"  data-toggle="modal" data-target="#modal-addparent">
+                <i class="far fa-circle nav-icon"></i>
+                <p>เพิ่มรายชื่อผู้ปกครอง</p>
+              </a>
+            </li>
+
+          </ul>
+        </li>
+
+        <li class="nav-header">Year ปีการศึกษา</li>
+        <li class="nav-item">
+          <a href="{{ url('yearmanament') }}" class="nav-link">
+            <i class="fas fa-circle nav-icon"></i>
+            <p>การจัดการข้อมูล</p>
+          </a>
+        </li>
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-circle"></i>
+            <p>
+              ข้อมูลปีการศึกษา
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addyear">
+                <i class="far fa-circle nav-icon"></i>
+                <p>เพิ่มข้อมูลปีการศึกษา</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addyear">
+                <i class="far fa-circle nav-icon"></i>
+                <p>เพิ่มข้อมูลปีการศึกษา</p>
+              </a>
+            </li>
+          </ul>
+
           <li class="nav-header">MULTI LEVEL EXAMPLE</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
