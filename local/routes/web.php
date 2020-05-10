@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     //return view('welcome');
     //return view('admin.home');
-    return view('admin.ucm100.parent');
+    //return view('admin.ucm100.parent');
     // $get = DB::table('tb_year')->get();
     // dd($get);
     // phpinfo();
@@ -27,3 +27,7 @@ Route::get('addyear_term','Ucm500Controller@addyear_term');
 Route::get('deleteyear_term','Ucm500Controller@deleteyear_term');
 
 Route::get('parentmanament', 'Ucm100Controller@index');
+Route::get('addparent', 'Ucm100Controller@addparent');
+Route::get('editparent', 'Ucm100Controller@editparent');
+Route::get('deleteparent', 'Ucm100Controller@deleteparent');
+Route::get('update_enable', 'Ucm100Controller@update_enable');

@@ -224,6 +224,10 @@ to get the desired effect
 <script src="{{ url('/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ url('/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 
+<!-- SweetAlert2 -->
+<script src="{{ url('/AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<!-- Toastr -->
+<script src="{{ url('/AdminLTE/plugins/toastr/toastr.min.js') }}"></script>
 
 @yield('javascript_below')
 
@@ -242,17 +246,18 @@ to get the desired effect
                       <!-- select -->
                       <div class="form-group">
                         <label>กรุณากรอกข้อมูลให้ครบ</label>
+
                           <form action="{{ url('/addparent') }}" method="get" id="frm_add_parent">
-                            <select class="form-control" name="sleParent">
-                              <option value="<?php echo date('Y', strtotime('+1 year')); ?>"><?php echo date('Y', strtotime('+1 year')); ?></option>
-                              <?php
-                              // $year_start = 2018;
-                              // $year_end = date('Y');
-                              // for($i=date('Y');$i>=$year_start;$i--){
-                              //   echo '<option value="'.$i.'">'.$i.'</option>';
-                              // }
-                              ?>
-                            </select>
+                            <label>รหัสบัญชีผู้ปกครอง</label>
+                            <input type="text" class="form-control" name="txtExpress_id" placeholder="" required>
+                            <label>ชื่อ</label>
+                            <input type="text" class="form-control" name="txtName" placeholder="" required>
+                            <label>นามสกุล</label>
+                            <input type="text" class="form-control" name="txtSurname" placeholder="" required>
+                            <label>อีเมลล์ที่สามารถส่งถึง</label>
+                            <input type="text" class="form-control" name="txtEmail_to" placeholder="" required>
+                            <label>อีเมลล์ที่ต้องการแจ้งให้ทราบ</label>
+                            <input type="text" class="form-control" name="txtEmail_CC" placeholder="" required>
                           </form>
                       </div>
                     </div>
@@ -260,7 +265,7 @@ to get the desired effect
     </div>
     <div class="modal-footer justify-content-between">
       <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-      <button type="button" class="btn btn-primary" onclick="frm_add_year.submit();">ยืนยัน</button>
+      <button type="button" class="btn btn-primary" onclick="frm_add_parent.submit();">ยืนยัน</button>
     </div>
   </div>
   <!-- /.modal-content -->
@@ -268,6 +273,8 @@ to get the desired effect
 <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+
 
 
 </body>
