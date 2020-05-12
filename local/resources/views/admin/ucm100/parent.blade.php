@@ -97,7 +97,7 @@ Management Parent
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">เพิ่มชื่อผู้ปกครอง</h4>
+        <h4 class="modal-title">แก้ไขข้อมูลผู้ปกครอง</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -199,7 +199,6 @@ function parent_update_id($id){
                  showConfirmButton: false,
                  timer: 200
                });
-
                //console.log(result['is_enable']);
                if(result['is_enable'] == "0") {
                  $(document).Toasts('create', {
@@ -225,9 +224,6 @@ function parent_update_id($id){
 
                var d = new Date(result['updated_at']);
                document.getElementById("update_"+result['parent_customer_id']).innerHTML = d.getFullYear()+"-"+parseInt(d.getMonth()+1, 10)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
-
-
-
           }});
 }
 

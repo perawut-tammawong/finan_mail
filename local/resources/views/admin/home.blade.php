@@ -124,7 +124,7 @@ to get the desired effect
         <li class="nav-item">
           <a href="{{ url('yearmanament') }}" class="nav-link">
             <i class="fas fa-circle nav-icon"></i>
-            <p>การจัดการข้อมูล</p>
+            <p>การจัดการปีการศึกษา </p>
           </a>
         </li>
         <li class="nav-item has-treeview">
@@ -142,13 +142,41 @@ to get the desired effect
                 <p>เพิ่มข้อมูลปีการศึกษา</p>
               </a>
             </li>
-
             <li class="nav-item">
               <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addyear">
                 <i class="far fa-circle nav-icon"></i>
                 <p>เพิ่มข้อมูลปีการศึกษา</p>
               </a>
             </li>
+            @yield('nav_slide_bar_student')
+                <!-- <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="fas fa-circle nav-icon"></i>
+                    <p>การจัดการนักเรียน</p>
+                  </a>
+                </li>
+                <li class="nav-item has-treeview">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-circle"></i>
+                    <p>
+                      ข้อมูลนักเรียน
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addyear">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>เพิ่มข้อมูลนักเรียน</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addyear">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>เพิ่มข้อมูลนักเรียนแบบไฟล์</p>
+                      </a>
+                    </li>
+                  </ul> -->
           </ul>
 
           <li class="nav-header">MULTI LEVEL EXAMPLE</li>
@@ -299,7 +327,6 @@ to get the desired effect
                       <!-- select -->
                       <div class="form-group">
                         <label>กรุณากรอกข้อมูลให้ครบ</label>
-
                           <form action="{{ url('/addparent') }}" method="get" id="frm_add_parent">
                             <label>รหัสบัญชีผู้ปกครอง</label>
                             <input type="text" class="form-control" name="txtExpress_id" placeholder="" required>
@@ -326,6 +353,60 @@ to get the desired effect
 <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<?php
+if (isset($term)==1){ ?>
+  <div class="modal fade" id="modal-addstudent">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">เพิ่มชื่อนักเรียน</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <!-- select -->
+                        <div class="form-group">
+                          <label>กรุณากรอกข้อมูลให้ครบ</label>
+                            <form action="{{ url('/studentmanagement//addstudent') }}" method="get" id="frm_add_student">
+                              <label>รหัสนักเรียน</label>
+                              <input type="text" class="form-control" name="txtSchool_id" placeholder=""  required>
+                              <label>ชื่อ</label>
+                              <input type="text" class="form-control" name="txtName" placeholder="" required>
+                              <label>นามสกุล</label>
+                              <input type="text" class="form-control" name="txtSurname" placeholder="" required>
+                              <label>ชื่อเล่น</label>
+                              <input type="text" class="form-control" name="txtNickname" placeholder="" required>
+
+                                  <label>เลือกชื่อผู้ปกครอง</label>
+                                  <select class="form-control select2 select2-danger" name="sleParent" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                    <?php
+                                    $get_sleparent = DB::table('tb_parent')->get();
+                                    foreach($get_sleparent as $pa_sel){ ?>
+                                      <option value="{{ $pa_sel->parent_customer_id }}">{{ $pa_sel->name }}&nbsp;{{ $pa_sel->sur_name }}</option>
+                                    <?php } ?>
+                                  </select>
+                              <!-- <label>อีเมลล์ที่ต้องการแจ้งให้ทราบ</label>
+                              <input type="text" class="form-control" name="txtEmail_CC" placeholder="" required> -->
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+        <button type="button" class="btn btn-primary" onclick="frm_add_student.submit();">ยืนยัน</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+<?php } ?>
 
 
 
