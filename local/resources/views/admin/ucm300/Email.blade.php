@@ -1,25 +1,25 @@
 @extends('admin.home')
-@section('nav_slide_bar_student')
-<!-- <li class="nav-header">การจัดการข้อมูลปีการศึกษา</li>
+@section('nav_slide_bar_email')
+<!-- <li class="nav-header">การจัดการข้อมูลอีเมลล์</li>
 <li class="nav-item has-treeview">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-circle"></i>
     <p>
-      ปีการศึกษา
+      การตั้งค่าอีเมลล์
       <i class="right fas fa-angle-left"></i>
     </p>
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item">
-      <a href="#" class="nav-link">
+      <a href="{{ url('/seeting_email') }}" class="nav-link">
         <i class="far fa-circle nav-icon"></i>
-        <p>ข้อมูลปีการศึกษา</p>
+        <p>ตั้งค่าระบบอีเมลล์</p>
       </a>
     </li>
     <li class="nav-item">
       <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addyear">
         <i class="far fa-circle nav-icon"></i>
-        <p>เพิ่มข้อมูลปีการศึกษา</p>
+        <p>ร่างหัวข้อการส่งอีเมลล์ </p>
       </a>
     </li>
     <li class="nav-item">
@@ -42,33 +42,35 @@ Setting Email
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">การตั้งค่าอีเมลล์</h3>
+            <h3 class="card-title">การตั้งค่าอีเมลล์ <?php //dd($email); ?></h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
             <div class="col-md-6" >
-                              <div class="form-group">
-                               <label>SMTPDebug</label>
-                               <input type="text" class="form-control" id="txt" name="txtSmtpdebug" placeholder="SMTP Debug">
-                               <label>isSMTP</label>
-                               <input type="text" class="form-control" id="txt" name="txtisSMTP" placeholder="isSMTP">
-                               <label>Host</label>
-                               <input type="text" class="form-control" id="txt" name="txtHost" placeholder="Host">
-                               <label>SMTPAuth</label>
-                               <input type="text" class="form-control" id="txt" name="txtSMTPAuth" placeholder="SMTPAuth">
-                               <label>SMTPSecure</label>
-                               <input type="text" class="form-control" id="txt" name="SMTPSecure" placeholder="SMTPSecure">
-                               <label>Port</label>
-                               <input type="text" class="form-control" id="txt" name="txtPort" placeholder="Port">
-                               <label>Username</label>
-                               <input type="text" class="form-control" id="txt" name="txtUsername" placeholder="Username">
-                               <label>Password</label>
-                               <input type="text" class="form-control" id="txt" name="txtPassword" placeholder="Password">
-                             </div>
+              <div class="form-group">
+                <label>SMTPDebug</label>
+                      <input type="text" class="form-control" id="txtSmtpdebug" name="txtSmtpdebug" value="{{ $email->SMTPDebug }}" placeholder="SMTP Debug">
+                      <!-- <label>isSMTP</label>
+                      <input type="text" class="form-control" id="txt" name="txtisSMTP" value="{{ $email->isSMTP }}" placeholder="isSMTP"> -->
+                      <label>Host</label>
+                      <input type="text" class="form-control" id="txtHost" name="txtHost" value="{{ $email->Host }}" placeholder="Host">
+                      <label>SMTPAuth</label>
+                      <input type="text" class="form-control" id="txtSMTPAuth" name="txtSMTPAuth" value="{{ $email->SMTPAuth }}" placeholder="SMTPAuth">
+                      <!-- <label>SMTPSecure</label>
+                      <input type="text" class="form-control" id="txt" name="SMTPSecure" value="{{ $email->SMTPSecure }}" placeholder="SMTPSecure"> -->
+                      <label>Port</label>
+                      <input type="text" class="form-control" id="txtPort" name="txtPort" value="{{ $email->Port }}" placeholder="Port">
+                      <label>Username</label>
+                      <input type="text" class="form-control" id="txtUsername" name="txtUsername" value="{{ $email->Username }}" placeholder="Username">
+                      <label>Password</label>
+                      <input type="text" class="form-control" id="txtPassword" name="txtPassword" value="{{ $email->Password }}" placeholder="Password">
+                      <input type="hidden" class="form-control" name="txtSettingemail_id" id="txtSettingemail_id" value ="" />
+             </div>
             </div>
           </div>
           <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-primary" onclick="frm_del_parent.submit();">บันทึกการตั้งค่า</button>
+            <button type="button" class="btn btn-primary" onclick="setting_mail('update_setting');" >บันทึกการตั้งค่า</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-send_test_email"  data-toggle="modal" data-target="#modal-sendemail" >ทดสอบการส่งอีเมลล์</button>
           </div>
           <!-- /.card-body -->
         </div>
@@ -80,143 +82,115 @@ Setting Email
   </section>
   <!-- /.content -->
 
+  <div class="modal fade" id="modal-send_test_email">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">ทดสอบการส่งอีเมลล์</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                    <div class="row">
+                        <!-- select -->
+                        <form action="#" method="get" id="frm_email_send">
+                        <div class="form-group" >
+                              <label>For Testing Email</label>
+                              <input type="email" name="txtSendEmail" id="txtSendmail_test" placeholder="กรุณากรอกอีเมลล์" required>
+                        </div>
+                      </form>
+                    </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+        <button type="button" class="btn btn-primary" onclick="sendemail_test()" >ยืนยัน</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+
 @endsection
 @section('javascript_below')
 <script>
-// function student_update_id($id){
-//   $.ajax({url: "{{ url('studentupdate') }}",
-//      data: { student_id:$id },
-//      success: function(result){
-//        const Toast = Swal.mixin({
-//          toast: true,
-//          position: 'top-end',
-//          showConfirmButton: false,
-//          timer: 200
-//        });
-//        // console.log(result['is_enable']);
-//        if(result['is_enable'] == "0") {
-//          $(document).Toasts('create', {
-//            class: 'bg-warning',
-//            title: 'อัพเดต',
-//            autohide: true,
-//            delay: 900,
-//            position: 'bottomRight',
-//            body: 'ยกเลิกการรายชื่อนักเรียนชั่วคราว'
-//          })
-//        }else{
-//          $(document).Toasts('create', {
-//            class: 'bg-info',
-//            title: 'อัพเดต',
-//            autohide: true,
-//            delay: 900,
-//            position: 'bottomRight',
-//            body: 'อนุญาติรายชื่อใช้งานได้อีกครั้ง'
-//          })
-//        }
-//        var d = new Date(result['updated_at']);
-//        document.getElementById("update_stu"+result['student_id']).innerHTML = d.getFullYear()+"-"+parseInt(d.getMonth()+1, 10)+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
-//   }});
-// }
-//
-// function student_send_id($student_id,$school_id,$name,$sur_name,$nickname,$parent_customer_id,$term_edit){
-//   document.getElementById("txtStudent_id").value = $student_id;
-//   document.getElementById("txtSchool_id").value = $school_id;
-//   document.getElementById("txtName").value = $name;
-//   document.getElementById("txtSurname").value = $sur_name;
-//   document.getElementById("txtNickname").value = $nickname;
-//   document.getElementById("txtTerm_edit").value = $term_edit;
-// }
-//
-//
-// function student_delete_id($id,$term)
-// {
-//   document.getElementById("txtStudent_del_id").value = $id;
-//   document.getElementById("txtTerm").value = $term;
-// }
-//
-// $('#select-all').click(function(event) {
-//     if(this.checked) {
-//         // Iterate each checkbox
-//         $(':checkbox').each(function() {
-//             this.checked = true;
-//         });
-//     } else {
-//         $(':checkbox').each(function() {
-//             this.checked = false;
-//         });
-//     }
-// });
-//
-// $(function () {
-//     //Initialize Select2 Elements
-//     $('.select2').select2()
-//
-//     //Initialize Select2 Elements
-//     $('.select2bs4').select2({
-//       theme: 'bootstrap4'
-//     })
-//
-//     //Datemask dd/mm/yyyy
-//     $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-//     //Datemask2 mm/dd/yyyy
-//     $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-//     //Money Euro
-//     $('[data-mask]').inputmask()
-//
-//     //Date range picker
-//     $('#reservationdate').datetimepicker({
-//         format: 'L'
-//     });
-//     //Date range picker
-//     $('#reservation').daterangepicker()
-//     //Date range picker with time picker
-//     $('#reservationtime').daterangepicker({
-//       timePicker: true,
-//       timePickerIncrement: 30,
-//       locale: {
-//         format: 'MM/DD/YYYY hh:mm A'
-//       }
-//     })
-//     //Date range as a button
-//     $('#daterange-btn').daterangepicker(
-//       {
-//         ranges   : {
-//           'Today'       : [moment(), moment()],
-//           'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-//           'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-//           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-//           'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-//           'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-//         },
-//         startDate: moment().subtract(29, 'days'),
-//         endDate  : moment()
-//       },
-//       function (start, end) {
-//         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-//       }
-//     )
-//
-//     //Timepicker
-//     $('#timepicker').datetimepicker({
-//       format: 'LT'
-//     })
-//
-//     //Bootstrap Duallistbox
-//     $('.duallistbox').bootstrapDualListbox()
-//
-//     //Colorpicker
-//     $('.my-colorpicker1').colorpicker()
-//     //color picker with addon
-//     $('.my-colorpicker2').colorpicker()
-//
-//     $('.my-colorpicker2').on('colorpickerChange', function(event) {
-//       $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-//     });
-//
-//     $("input[data-bootstrap-switch]").each(function(){
-//       $(this).bootstrapSwitch('state', $(this).prop('checked'));
-//     });
-//
-//   })
+function sendemail_test(){
+        $email = document.getElementById("txtSendmail_test").value;
+               if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($email)){
+                          // console.log($email);
+                          $.ajax({url: "{{ url('sendemail_to') }}",
+                           data: { Sendmail_to:$email  },
+                           success: function(result){
+                             console.log(result);
+                                        const Toast = Swal.mixin({
+                                          toast: true,
+                                          position: 'top-end',
+                                          showConfirmButton: false,
+                                          timer: 200
+                                        });
+                                                      if(result['activity'] == "1"){
+                                                            $(document).Toasts('create', {
+                                                              class: 'bg-success',
+                                                              title: 'อัพเดต',
+                                                              autohide: true,
+                                                              delay: 30000,
+                                                              position: 'bottomRight',
+                                                              body: 'การส่งอีเมลล์สำรเร็จ'
+                                                            })
+                                                          }else{
+                                                           $(document).Toasts('create', {
+                                                             class: 'bg-warning',
+                                                             title: 'อัพเดต',
+                                                             autohide: true,
+                                                             delay: 30000,
+                                                             position: 'bottomRight',
+                                                             body: 'เกิดข้อผิดพลาด ตามคำสั่งนี้ '+result['message']
+                                                           })
+                                                     }
+                              }
+                           });
+                }else{
+                  alert("You have entered an invalid email address!")
+                  return (false)
+                }
+}
+
+function setting_mail_send($id){
+    // document.getElementById("txtSendEmail").value = $id;
+}
+
+
+
+function setting_mail(){
+  $.ajax({url: "{{ url('setting_update_email') }}",
+     data: { Settingemail_id:document.getElementById("txtSettingemail_id").value,
+             SMTPDebug:document.getElementById("txtSmtpdebug").value,
+             Host:document.getElementById("txtHost").value,
+             Port:document.getElementById("txtPort").value,
+             Username:document.getElementById("txtUsername").value,
+             Password:document.getElementById("txtPassword").value  },
+     success: function(result){
+       // console.log(result);
+          const Toast = Swal.mixin({
+                 toast: true,
+                 position: 'top-end',
+                 showConfirmButton: false,
+                 timer: 2000
+               });
+               if(result['settingemail_id'] == "1"){
+                 $(document).Toasts('create', {
+                   class: 'bg-info',
+                   title: 'อัพเดต',
+                   autohide: true,
+                   delay: 9000,
+                   position: 'bottomRight',
+                   body: 'Update การตั้งค่า'
+                 })
+              }
+     }});
+}
 </script>
 @endsection

@@ -19,6 +19,7 @@ Route::get('/', function () {
     // $get = DB::table('tb_year')->get();
     // dd($get);
     // phpinfo();
+    echo 'hello';
 });
 Route::get('yearmanament', 'Ucm500Controller@index');
 Route::get('addyearnew', 'Ucm500Controller@addyearnew');
@@ -40,3 +41,14 @@ Route::get('editstudent', 'Ucm200Controller@editstudent');
 
 Route::get('for_sendmail', 'Ucm300Controller@index');
 Route::get('seeting_email', 'Ucm300Controller@setting_email');
+Route::get('setting_update_email', 'Ucm300Controller@setting_update_email');
+Route::get('sendemail_to', 'Ucm300Controller@sendemail_to');
+Route::get('linetemplate', 'Ucm300Controller@linetemplate');
+Route::get('addtemplatemail', 'Ucm300Controller@addtemplatemail');
+Route::get('adddbtemplatemail', 'Ucm300Controller@adddbtemplatemail');
+Route::get('editsubjectEmail/{id}', 'Ucm300Controller@editsubjectEmail');
+Route::get('editupdateEmail', 'Ucm300Controller@editupdateEmail');
+Route::get('delete_email', 'Ucm300Controller@delete_email');
+
+Route::get('addfield', 'Ucm300Controller@addfield');
+Route::get('seefield/{id}', 'Ucm300Controller@seefield');

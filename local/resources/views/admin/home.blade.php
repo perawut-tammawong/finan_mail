@@ -14,6 +14,8 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ url('/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ url('/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <!-- summernote -->
+<link rel="stylesheet" href="{{ url('/AdminLTE/plugins/summernote/summernote-bs4.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('/AdminLTE/dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
@@ -142,12 +144,6 @@ to get the desired effect
                 <p>เพิ่มข้อมูลปีการศึกษา</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addyear">
-                <i class="far fa-circle nav-icon"></i>
-                <p>เพิ่มข้อมูลปีการศึกษา</p>
-              </a>
-            </li>
             @yield('nav_slide_bar_student')
                 <!-- <li class="nav-item">
                   <a href="#" class="nav-link">
@@ -178,7 +174,37 @@ to get the desired effect
                     </li>
                   </ul> -->
           </ul>
-
+          @yield('nav_slide_bar_email')
+          <li class="nav-header">การจัดการข้อมูลอีเมลล์</li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-circle"></i>
+              <p>
+                การตั้งค่าอีเมลล์
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('seeting_email') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>ตั้งค่าระบบอีเมลล์</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('linetemplate') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>ร่างหัวข้อการส่งอีเมลล์ </p>
+                </a>
+              </li>
+              <!-- <li class="nav-item">
+                <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-deleteyear">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>ลบข้อมูลปีการศึกษา</p>
+                </a>
+              </li> -->
+            </ul>
+          </li>
           <li class="nav-header">MULTI LEVEL EXAMPLE</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -304,6 +330,8 @@ to get the desired effect
 <script src="{{ url('/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ url('/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ url('/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<!-- Summernote -->
+<script src="{{ url('/AdminLTE/plugins/summernote/summernote-bs4.min.js') }}"></script>
 
 <!-- SweetAlert2 -->
 <script src="{{ url('/AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
