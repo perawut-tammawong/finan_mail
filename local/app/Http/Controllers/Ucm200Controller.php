@@ -16,12 +16,11 @@ class Ucm200Controller extends Controller
       $get_student = Student_tb::where('term_id','=',$idterm)->where('is_delete','=',0)->get();
 
       $get_term = DB::table('tb_term')
-                          ->select('term','year_id')
+                          ->select('term_id','term','year_id')
                           ->where('term_id','=',$idterm)
                           ->where('is_enable','=',1)
                           ->where('is_delete','=',0)
                           ->first();
-      // dd($get_term);
       $get_year = DB::table('tb_year')
                           ->select('year_id','year')
                           ->where('year_id','=',$get_term->year_id)
@@ -32,12 +31,10 @@ class Ucm200Controller extends Controller
                                                 ->where('parent_customer_id','=',$st->parent_customer_id)
                                                 ->first();
                           }
-
-
-
       return view('admin.ucm200.student')
                 ->with('year',$get_year->year)
                 ->with('term',$get_term->term)
+                ->with('term_id',$get_term->term_id)
                 ->with('get_student',$get_student)
                 ->with('parent',$get_parent);
   }
@@ -114,6 +111,31 @@ class Ucm200Controller extends Controller
               }
               $url = "studentmanagement/".$request->input('txtTerm_edit');
               return redirect($url);
+  }
+
+  public function sendemailtoparent_stu($idterm){
+      $get_student = Student_tb::where('term_id','=',$idterm)->where('is_enable','=',1)->where('is_delete','=',0)->get();
+      $get_term = DB::table('tb_term')
+                          ->select('term_id','term','year_id')
+                          ->where('term_id','=',$idterm)
+                          ->where('is_enable','=',1)
+                          ->where('is_delete','=',0)
+                          ->first();
+      $get_year = DB::table('tb_year')
+                          ->select('year_id','year')
+                          ->where('year_id','=',$get_term->year_id)
+                          ->where('is_delete','=',0)
+                          ->first();
+
+      return view('admin.ucm200.sendmail_stu')
+                  ->with('get_student',$get_student)
+                  ->with('year',$get_year->year)
+                  ->with('term',$get_term->term);
+  }
+
+  public function frm_send_template_mail(Request $request){
+    $test = $request->input('school_id');
+    dd($test);
   }
 
 }

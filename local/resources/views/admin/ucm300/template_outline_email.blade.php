@@ -38,7 +38,7 @@ Setting Template Email
                                             <td>{{ $tm->setFrom_description }}</td>
                                             <td class="text-center">
                                               <a href="{{ url('/seefield') }}/<?php echo $tm->template_email_id; ?>" class="btn btn-success btn-sm"><font color="white"><i class="far fa-eye"></i> See Field</font></a>
-                                              <button type="button" class="btn btn-success btn-sm" text-align="center" data-toggle="modal" data-target="#modal-AddField" onclick="clear_will_send_meter('<?php echo $tm->template_email_id; ?>')">+ Add Field Special</button>
+                                              <button type="button" class="btn btn-success btn-sm" text-align="center" data-toggle="modal" data-target="#modal-AddField" onclick="clear_will_send_meter('<?php echo $tm->template_email_id; ?>')">+ Add Special</button>
                                             </td>
                                             <td class="text-center">
                                 <a href="{{ url('editsubjectEmail') }}/<?php echo $tm->template_email_id; ?>" ><font color="black"><i class="fas fa-edit mousechange"></i></font></a>

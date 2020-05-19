@@ -30,12 +30,40 @@
     </li>
   </ul>
 </li> -->
-<li class="nav-item">
-  <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addstudent">
-    <i class="far fa-circle nav-icon"></i>
-    <p>เพิ่มข้อมูลนักเรียน</p>
+<li class="nav-item has-treeview">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-circle"></i>
+    <p>
+      Stu. Year {{ $year }} / {{ $term }}
+      <i class="right fas fa-angle-left"></i>
+    </p>
   </a>
-</li>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{ url('studentmanagement') }}/{{ $term_id }}" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>รายชื่อ Stu. Year {{ $year }} / {{ $term }}</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addstudent">
+        <i class="far fa-circle nav-icon"></i>
+        <p>เพิ่มข้อมูลนักเรียน</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('sendemailtoparent_stu') }}/{{ $term_id }}" class="nav-link" >
+        <i class="far fa-circle nav-icon"></i>
+        <p>การส่งอีเมลล์แก่ผู้เรียน</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addstudent">
+        <i class="far fa-circle nav-icon"></i>
+        <p>บันทึกการชำระเงินค่าเรียน</p>
+      </a>
+    </li>
+  </ul>
 @endsection
 @section('head')
 Management Student <br />Year {{ $year }}  Term {{ $term }}
@@ -55,7 +83,7 @@ Management Student <br />Year {{ $year }}  Term {{ $term }}
             <table id="example2" class="table table-bordered table-striped">
               <thead>
               <tr>
-                <th>Select All <br /> <input type="checkbox" name="select-all" id="select-all" /></th>
+                <!-- <th>Select All <br /> <input type="checkbox" name="select-all" id="select-all" /></th> -->
                 <th>รหัสนักเรียน<br /> (iSams)</th>
                 <th>ชื่อ<br />Name</th>
                 <th>นามสกุล<br />Surname</th>
@@ -69,7 +97,7 @@ Management Student <br />Year {{ $year }}  Term {{ $term }}
                       <form action="{{ url('/for_sendmail') }}" method="get" id="frm_send_mail" />
                       <?php  foreach($get_student as $st){ ?>
                         <tr>
-                          <td><input type="checkbox" name="checkbox[]" id="checkbox[-<?php echo $st->student_id; ?>]" value="<?php echo $st->student_id; ?>" /></td>
+                          <!-- <td><input type="checkbox" name="checkbox[]" id="checkbox[-<?php echo $st->student_id; ?>]" value="<?php echo $st->student_id; ?>" /></td> -->
                           <td>{{ $st->school_id }}</td>
                           <td>{{ $st->name }}</td>
                           <td>{{ $st->surname }}</td>
@@ -84,6 +112,9 @@ Management Student <br />Year {{ $year }}  Term {{ $term }}
                           <td>
                             <div class="form-group">
                                 <div class="custom-control custom-switch">
+                                  <input type="checkbox" class="custom-control-input " id="customSwitch_<?php echo $st->student_id; ?>" <?php if($st->is_enable == "1"){ echo 'checked'; }?> onclick="student_update_id(<?php echo $st->student_id; ?>)" >
+                                  <label class="custom-control-label  mousechange" for="customSwitch_<?php echo $st->student_id; ?>" ></label>
+
                                   <i class="fas fa-edit mousechange" data-toggle="modal" data-target="#modal-editstudent" onclick="student_send_id('<?php echo $st->student_id; ?>','<?php echo $st->school_id; ?>','<?php echo $st->name; ?>','<?php echo $st->surname; ?>','<?php echo $st->nickname; ?>','<?php echo $st->parent_customer_id; ?>','<?php echo $st->term_id; ?>')"></i>&nbsp;&nbsp;
                                   <i class="far fa-trash-alt mousechange" data-toggle="modal" data-target="#modal-delstudent" onclick="student_delete_id(<?php echo $st->student_id; ?>,<?php echo $st->term_id; ?>)" ></i></div></td>
                                 </div>
@@ -91,13 +122,14 @@ Management Student <br />Year {{ $year }}  Term {{ $term }}
                           </td>
                           <td><lable id="update_stu<?php echo $st->student_id; ?>">{{ $st->updated_at }}</lable></td>
                         </tr>
+
                       <?php }  ?>
                     </form>
               </tbody>
             </table>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-primary" onclick="frm_send_mail.submit();">ยืนยัน</button>
-            </div>
+            <!-- <div class="modal-footer justify-content-between"> -->
+              <!-- <button type="button" class="btn btn-primary" onclick="frm_send_mail.submit();">ยืนยัน</button> -->
+            <!-- </div> -->
 
           </div>
           <!-- /.card-body -->
