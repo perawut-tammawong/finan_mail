@@ -18,7 +18,6 @@ Route::get('/', function () {
     //return view('admin.ucm100.parent');
     // $get = DB::table('tb_year')->get();
     // dd($get);
-    // phpinfo();
     echo 'hello';
 });
 Route::get('yearmanament', 'Ucm500Controller@index');
