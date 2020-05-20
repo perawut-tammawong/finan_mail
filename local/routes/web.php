@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    //return view('welcome');
-    //return view('admin.home');
-    //return view('admin.ucm100.parent');
-    // $get = DB::table('tb_year')->get();
-    // dd($get);
     echo 'hello';
 });
 Route::get('yearmanament', 'Ucm500Controller@index');
