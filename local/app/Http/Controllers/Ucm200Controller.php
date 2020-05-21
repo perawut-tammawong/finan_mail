@@ -130,12 +130,17 @@ class Ucm200Controller extends Controller
       return view('admin.ucm200.sendmail_stu')
                   ->with('get_student',$get_student)
                   ->with('year',$get_year->year)
-                  ->with('term',$get_term->term);
+                  ->with('term',$get_term->term)
+                  ->with('idterm',$idterm);
   }
 
   public function frm_send_template_mail(Request $request){
-    $test = $request->input('school_id');
-    dd($test);
+        dd($request->input('txtTermurl'));
+
+        // $get_templatemail = DB::table('tb_template_email')->where('template_email_id','=',$request->input('sle_template'))->first();
+        // return view('admin.ucm200.outline_forsend')
+        //           ->with('setFrom_subject',$get_templatemail->setFrom_subject)
+        //           ->with('Set_body',$get_templatemail->Set_body);
   }
 
 }

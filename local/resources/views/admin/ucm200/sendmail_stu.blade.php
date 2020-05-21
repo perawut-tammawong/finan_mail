@@ -52,6 +52,7 @@ Template Email for send to parent
                         </tr>
                       <?php }  ?>
                           <input type="hidden" name="sle_template" id="sle_template" value="" />
+                          <input type="hidden" name="txtTermurl" id="txtTermurl" value="{{ $idterm }}" />
                     </form>
               </tbody>
             </table>
