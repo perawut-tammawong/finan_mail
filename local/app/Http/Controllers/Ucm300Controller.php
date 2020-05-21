@@ -132,7 +132,6 @@ class Ucm300Controller extends Controller
 
   public function seefield($id){
     $get_template_email = DB::table('tb_template_email')->where('template_email_id','=',$id)->first();
-    // dd($get_template_email);
     return view('admin.ucm300.seefield')
                 ->with('template_email',$get_template_email);
   }

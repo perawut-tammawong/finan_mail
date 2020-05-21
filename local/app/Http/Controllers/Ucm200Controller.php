@@ -9,6 +9,9 @@ use App\Http\Model\Year_tb;
 use DB;
 use Illuminate\Http\Request;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class Ucm200Controller extends Controller
 {
@@ -135,12 +138,91 @@ class Ucm200Controller extends Controller
   }
 
   public function frm_send_template_mail(Request $request){
-        dd($request->input('txtTermurl'));
+        // dd($request->input('txtTermurl'));
+        $get_templatemail = DB::table('tb_template_email')->where('template_email_id','=',$request->input('sle_template'))->first();
+        $get_term_student = DB::table('tb_student')->where('term_id','=',$request->input('txtTermurl'))->where('is_delete','=','0')->get();
 
-        // $get_templatemail = DB::table('tb_template_email')->where('template_email_id','=',$request->input('sle_template'))->first();
-        // return view('admin.ucm200.outline_forsend')
-        //           ->with('setFrom_subject',$get_templatemail->setFrom_subject)
-        //           ->with('Set_body',$get_templatemail->Set_body);
+        return view('admin.ucm200.outline_forsend')
+                  ->with('setFrom_subject',$get_templatemail->setFrom_subject)
+                  ->with('Set_body',$get_templatemail->Set_body)
+                  ->with('term_id',$request->input('txtTermurl'))
+                  ->with('student_stu',$request->input('school_id'))
+                  ->with('all_stu',$get_term_student);
   }
+
+  public function frm_send_real_email(Request $request){
+              $get_setting_mail = DB::table('tb_settingmail')
+                                ->where('settingemail_id','=','1')->first();
+              $student_id = $request->input('student_id');
+
+                  $get_profile = DB::table('tb_student')
+                                      ->select('parent_customer_id')
+                                      ->where('student_id','=',$student_id)
+                                      ->first();
+                  $get_Parent = DB::table('tb_parent')
+                                      ->select('name','sur_name','email_to_addaddress','email_cc_addCC')
+                                      ->where('parent_customer_id','=',$get_profile->parent_customer_id)
+                                      ->first();
+                  $result = $this->send_email_script($get_Parent->name,$get_Parent->sur_name,$get_Parent->email_to_addaddress,$get_Parent->email_cc_addCC,$request->input('txtSubject'),$request->input('txtAreaBody'));
+                  return $result;
+
+  }
+
+  public function back(){
+            $student_id = $request->input('sle_student');
+  }
+
+  public function send_email_script($name,$sur_name,$email_to_addaddress,$email_cc_addCC,$Subject,$AreaBody){
+
+            $get_setting_mail = DB::table('tb_settingmail')->where('settingemail_id','=','1')->first();
+            $nameemail = "คุณ&nbsp;".$name."&nbsp;&nbsp;".$sur_name;
+            $mail = new PHPMailer(true);
+                                  try {
+                                      //$mail->SMTPDebug = 2;                      // Enable verbose debug output
+                                      $mail->isSMTP();                                            // Send using SMTP
+                                      $mail->Host       = $get_setting_mail->Host;                    // Set the SMTP server to send through
+                                      $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                                      $mail->Username   = $get_setting_mail->Username;                     // SMTP username
+                                      $mail->Password   = $get_setting_mail->Password;                              // SMTP password
+                                      $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                                      $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+                                      $mail->SMTPOptions = array(
+                                                                'ssl' => array(
+                                                                    'verify_peer' => false,
+                                                                    'verify_peer_name' => false,
+                                                                    'allow_self_signed' => true
+                                                                )
+                                                            );
+                                      $mail->setFrom($get_setting_mail->Username, 'From Department Financial');
+                                      $mail->addAddress($email_to_addaddress, 'hello');             // Add a recipient
+                                         $mail->addAddress($email_cc_addCC, 'hello');                  // Add a recipient
+                                      $mail->isHTML(true);                                              // Set email format to HTML
+                                      $mail->Subject = $Subject;
+                                      $mail->Body    = $AreaBody;
+                                      $mail->send();
+                                      return response()->json([
+                                                'message' => 'Message has been sent',
+                                                'activity' => '1',
+                                                'name' => $name,
+                                                'sur_name' => $sur_name,
+                                                'email_to_addaddress' => $email_to_addaddress,
+                                                'email_cc_addCC' => $email_cc_addCC,
+                                                'Subject' => $Subject,
+                                                'AreaBody' => $AreaBody
+                                              ]);
+                                  } catch (Exception $e) {
+                                      return response()->json([
+                                                  'message' => 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo,
+                                                  'activity' => '0',
+                                                  'name' => $name,
+                                                  'sur_name' => $sur_name,
+                                                  'email_to_addaddress' => $email_to_addaddress,
+                                                  'email_cc_addCC' => $email_cc_addCC,
+                                                  'Subject' => $Subject,
+                                                  'AreaBody' => $AreaBody
+                                              ]);
+                                  }
+  }
+
 
 }

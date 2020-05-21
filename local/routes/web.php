@@ -34,6 +34,8 @@ Route::get('delstudent', 'Ucm200Controller@delstudent');
 Route::get('editstudent', 'Ucm200Controller@editstudent');
 Route::get('sendemailtoparent_stu/{idterm}', 'Ucm200Controller@sendemailtoparent_stu');
 Route::get('frm_send_template_mail', 'Ucm200Controller@frm_send_template_mail');
+Route::get('frm_send_real_email', 'Ucm200Controller@frm_send_real_email');
+
 
 Route::get('for_sendmail', 'Ucm300Controller@index');
 Route::get('seeting_email', 'Ucm300Controller@setting_email');

@@ -18,6 +18,11 @@
 <link rel="stylesheet" href="{{ url('/AdminLTE/plugins/summernote/summernote-bs4.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('/AdminLTE/dist/css/adminlte.min.css') }}">
+
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{ url('/AdminLTE/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ url('/AdminLTE/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
@@ -332,7 +337,8 @@ to get the desired effect
 <script src="{{ url('/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <!-- Summernote -->
 <script src="{{ url('/AdminLTE/plugins/summernote/summernote-bs4.min.js') }}"></script>
-
+<!-- Select2 -->
+<script src="{{ url('/AdminLTE/plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- SweetAlert2 -->
 <script src="{{ url('/AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <!-- Toastr -->
@@ -435,9 +441,6 @@ if (isset($term)==1){ ?>
   </div>
   <!-- /.modal -->
 <?php } ?>
-
-
-
 
 </body>
 </html>

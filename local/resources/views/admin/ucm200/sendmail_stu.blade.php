@@ -35,7 +35,7 @@ Template Email for send to parent
                       <form action="{{ url('/frm_send_template_mail') }}" method="get" id="frm_send_template_mail" />
                       <?php  foreach($get_student as $st){ ?>
                         <tr>
-                          <td><input type="checkbox" name="school_id[]" id="checkbox[-<?php echo $st->student_id; ?>]" value="<?php echo $st->student_id; ?>" /></td>
+                          <td><input type="checkbox" class="checkstu" name="school_id[]" id="checkbox[<?php echo $st->student_id; ?>]" value="<?php echo $st->student_id; ?>" /></td>
                           <td>{{ $st->school_id }}</td>
                           <td>{{ $st->name }}</td>
                           <td>{{ $st->surname }}</td>
@@ -84,7 +84,6 @@ Template Email for send to parent
                       <div class="col-sm-12">
                         <!-- select -->
                         <div class="form-group">
-
                           <label>เลือกหัวข้อการส่งจดหมาย</label>
                           <select class="form-control select2bs4" style="width: 100%;" name="sleTemplate_email_id" id="sleTemplate_email_id" onchange="getComboA(this)">
                             <option value="" >กรุณาเลือกชื่อผู้ปกครอง</option>
@@ -95,13 +94,12 @@ Template Email for send to parent
                             <?php } ?>
                           </select>
                         </div>
-
                       </div>
                     </div>
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-        <button type="button" class="btn btn-primary" onclick="frm_send_template_mail.submit();">ยืนยัน</button>
+        <button type="button" class="btn btn-primary" onclick="check_before_accep();">ยืนยัน</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -126,10 +124,17 @@ $('#select-all').click(function(event) {
     }
 });
 
-
 function getComboA(selectObject) {
   var value = selectObject.value;
   document.getElementById("sle_template").value = value;
+}
+function check_before_accep(){
+  var selectcheck = $('#sleTemplate_email_id option:selected').val();
+  if(selectcheck == "") {
+    return false;
+  }else{
+    frm_send_template_mail.submit();
+  }
 }
 </script>
 
