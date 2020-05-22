@@ -86,7 +86,7 @@ Template Email for send to parent
                         <div class="form-group">
                           <label>เลือกหัวข้อการส่งจดหมาย</label>
                           <select class="form-control select2bs4" style="width: 100%;" name="sleTemplate_email_id" id="sleTemplate_email_id" onchange="getComboA(this)">
-                            <option value="" >กรุณาเลือกชื่อผู้ปกครอง</option>
+                            <option value="" >กรุณาเลือกแม่แบบจดหมาย</option>
                             <?php
                             $get_Template_email_id = DB::table('tb_template_email')->get();
                             foreach($get_Template_email_id as $get_tm_email){ ?>

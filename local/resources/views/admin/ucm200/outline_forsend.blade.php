@@ -98,6 +98,46 @@ Compose New Message
    </section>
    <!-- /.content -->
 
+   <div class="modal fade" id="modal-statusbar">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h4 class="modal-title">สถานะการจัดส่งอีเมลล์</h4>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+                     <div class="row">
+                       <div class="col-sm-12">
+                         <div class="progress">
+                            <div class="progress-bar" style="width: 70%"></div>
+                          </div>
+                          <span class="progress-description">
+                            <p align="center">70% Increase in 30 Days</p>
+                          </span>
+                         <!-- select -->
+                         <!-- <div class="form-group">
+                           <label text-align="center">ต้องการลบ</label>
+                             <form action="{{ url('/delstudent') }}" method="get" id="frm_del_student">
+                               <input type="hidden" class="form-control" name="txtStudent_del_id" id="txtStudent_del_id" placeholder="" required>
+                               <input type="hidden" class="form-control" name="txtTerm" id="txtTerm" />
+                             </form>
+                         </div> -->
+                       </div>
+                     </div>
+       </div>
+       <div class="modal-footer justify-content-between">
+         <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+         <button type="button" class="btn btn-primary" onclick="frm_del_student.submit();">ยืนยัน</button>
+       </div>
+     </div>
+     <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+   </div>
+   <!-- /.modal -->
+
 
 @endsection
 @section('javascript_below')
@@ -123,16 +163,33 @@ Compose New Message
 <script>
 function student_send_id($test){
   var values = $('.select2').val();
+  $("#modal-statusbar").modal();
+
+  // document.getElementsByClassName("progress-bar")[0].style.width = "50%";
+  var num = values.length;
+  var sum_send_mail = 100 / num;
+  var increase = 0;
+  var persent_show;
   values.forEach(sendmail);
   function sendmail(item) {
+
+    increase += Math.round(sum_send_mail);
+    if(increase>=100){ increase=100; }
+    persent_show="width:"+increase+"%";
+    // console.log(persent_show);
+
+
     $.ajax({url: "{{ url('frm_send_real_email') }}",
        data: { student_id:item,
               txtSubject:$('#txtSubjectmail').val(),
               txtAreaBody:$('#compose-textarea').val()
               },
        success: function(result){
-          console.log(result);
+          document.getElementsByClassName("progress-bar")[0].setAttribute("style", persent_show);
        }});
+           // student_id:item,
+           // txtSubject:$('#txtSubjectmail').val(),
+           // txtAreaBody:$('#compose-textarea').val()
   }
 
 

@@ -60,8 +60,8 @@ class Ucm300Controller extends Controller
           				    $mail->setFrom($get_setting_mail->Username, 'Perawat Tummawong');
           				    $mail->addAddress($request->input('Sendmail_to'), 'Perawat');     // Add a recipient
           				    $mail->isHTML(true);                                              // Set email format to HTML
-          				    $mail->Subject = 'Schedule Server';
-          				    $mail->Body    = 'Server TesT';
+          				    $mail->Subject = 'Testing for send email';
+          				    $mail->Body    = 'body text for testing send email only';
           				    $mail->send();
                       return response()->json([
                                   'message' => 'Message has been sent',
