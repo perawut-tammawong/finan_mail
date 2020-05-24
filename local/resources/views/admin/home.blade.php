@@ -335,6 +335,8 @@ to get the desired effect
 <script src="{{ url('/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ url('/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ url('/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<!-- ChartJS -->
+<script src="{{ url('/AdminLTE/plugins/chart.js/Chart.min.js') }}"></script>
 <!-- Summernote -->
 <script src="{{ url('/AdminLTE/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <!-- Select2 -->

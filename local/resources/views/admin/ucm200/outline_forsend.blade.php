@@ -82,7 +82,7 @@ Compose New Message
              <div class="card-footer">
                <div class="float-right">
                  <button type="button" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Preview Email</button>
-                 <button type="button" class="btn btn-primary" onclick="student_send_id('hello');" ><i class="far fa-envelope"></i> Send</button>
+                 <button type="button" class="btn btn-primary" onclick="student_send_id();" ><i class="far fa-envelope"></i> Send</button>
 
                </div>
              </div>
@@ -109,27 +109,19 @@ Compose New Message
        </div>
        <div class="modal-body">
                      <div class="row">
-                       <div class="col-sm-12">
+                       <div class="col-sm-12" align="center">
                          <div class="progress">
-                            <div class="progress-bar" style="width: 70%"></div>
+                            <div class="progress-bar" style="width: 0%"></div>
                           </div>
-                          <span class="progress-description">
-                            <p align="center">70% Increase in 30 Days</p>
+                          <span class="progress-description" >
+                            0% Increase send email successfully
                           </span>
-                         <!-- select -->
-                         <!-- <div class="form-group">
-                           <label text-align="center">ต้องการลบ</label>
-                             <form action="{{ url('/delstudent') }}" method="get" id="frm_del_student">
-                               <input type="hidden" class="form-control" name="txtStudent_del_id" id="txtStudent_del_id" placeholder="" required>
-                               <input type="hidden" class="form-control" name="txtTerm" id="txtTerm" />
-                             </form>
-                         </div> -->
                        </div>
                      </div>
        </div>
        <div class="modal-footer justify-content-between">
          <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-         <button type="button" class="btn btn-primary" onclick="frm_del_student.submit();">ยืนยัน</button>
+         <a href="{{ url('logsendemail') }}"><button type="button" class="btn btn-primary" >ตรวจสอบข้อมูลการจัดส่งอีเมลล์</button></a>
        </div>
      </div>
      <!-- /.modal-content -->
@@ -161,31 +153,41 @@ Compose New Message
 
 </script>
 <script>
-function student_send_id($test){
+function student_send_id(){
   var values = $('.select2').val();
   $("#modal-statusbar").modal();
 
-  // document.getElementsByClassName("progress-bar")[0].style.width = "50%";
   var num = values.length;
-  var sum_send_mail = 100 / num;
+  var sum_send_mail = 100/num;
+  //var count = sum_send_mail*sum_send_mail;
+  var list_count_email = 0;
   var increase = 0;
   var persent_show;
+  document.getElementsByClassName("progress-bar")[0].setAttribute("style", increase);
+  document.getElementsByClassName("progress-description")[0].innerHTML = increase+"% Increase send email successfully <br />";
   values.forEach(sendmail);
   function sendmail(item) {
-
-    increase += Math.round(sum_send_mail);
-    if(increase>=100){ increase=100; }
-    persent_show="width:"+increase+"%";
-    // console.log(persent_show);
-
-
     $.ajax({url: "{{ url('frm_send_real_email') }}",
        data: { student_id:item,
               txtSubject:$('#txtSubjectmail').val(),
               txtAreaBody:$('#compose-textarea').val()
               },
        success: function(result){
-          document.getElementsByClassName("progress-bar")[0].setAttribute("style", persent_show);
+          if(result.message!=null){
+              list_count_email += 1;
+              increase += Math.round(sum_send_mail); 
+              if(increase>=99){ increase=100; }
+
+            persent_show="width:"+increase+"%";
+
+            document.getElementsByClassName("progress-bar")[0].setAttribute("style", persent_show);
+            document.getElementsByClassName("progress-description")[0].innerHTML = increase+"% Increase send email successfully <br />"+result.message+result.email_to_addaddress;
+            if(list_count_email === num){
+              document.getElementsByClassName("progress-description")[0].innerHTML += "<br />"+"จำนวนทั้งหมด "+num+" รายการ ส่งแล้ว "+list_count_email+"<br />การส่งอีเมลล์เสร็จสิ้น";
+            }
+            // " <br />จำนวนทั้งหมด "+num+" รายการ<br /> เสร็จสิ้นแล้ว "+list_count_email+" รายการ<br />";
+          }
+          console.log(result);
        }});
            // student_id:item,
            // txtSubject:$('#txtSubjectmail').val(),

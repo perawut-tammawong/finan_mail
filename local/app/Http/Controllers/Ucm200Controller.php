@@ -156,26 +156,21 @@ class Ucm200Controller extends Controller
               $student_id = $request->input('student_id');
 
                   $get_profile = DB::table('tb_student')
-                                      ->select('parent_customer_id')
+                                      ->select('student_id','parent_customer_id')
                                       ->where('student_id','=',$student_id)
                                       ->first();
                   $get_Parent = DB::table('tb_parent')
-                                      ->select('name','sur_name','email_to_addaddress','email_cc_addCC')
+                                      ->select('parent_customer_id','name','sur_name','email_to_addaddress','email_cc_addCC')
                                       ->where('parent_customer_id','=',$get_profile->parent_customer_id)
                                       ->first();
-                  $result = $this->send_email_script($get_Parent->name,$get_Parent->sur_name,$get_Parent->email_to_addaddress,$get_Parent->email_cc_addCC,$request->input('txtSubject'),$request->input('txtAreaBody'));
+                  $result = $this->send_email_script($get_profile->student_id,$get_Parent->parent_customer_id,$get_Parent->name,$get_Parent->sur_name,$get_Parent->email_to_addaddress,$get_Parent->email_cc_addCC,$request->input('txtSubject'),$request->input('txtAreaBody'));
                   return $result;
 
   }
 
-  public function back(){
-            $student_id = $request->input('sle_student');
-  }
-
-  public function send_email_script($name,$sur_name,$email_to_addaddress,$email_cc_addCC,$Subject,$AreaBody){
-
+  public function send_email_script($student_id,$parent_customer_id,$name,$sur_name,$email_to_addaddress,$email_cc_addCC,$Subject,$AreaBody){
             $get_setting_mail = DB::table('tb_settingmail')->where('settingemail_id','=','1')->first();
-            $nameemail = "คุณ&nbsp;".$name."&nbsp;&nbsp;".$sur_name;
+            $nameemail = "คุณ ".$name." ".$sur_name;
             $mail = new PHPMailer(true);
                                   try {
                                       //$mail->SMTPDebug = 2;                      // Enable verbose debug output
@@ -186,6 +181,7 @@ class Ucm200Controller extends Controller
                                       $mail->Password   = $get_setting_mail->Password;                              // SMTP password
                                       $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                                       $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+                                      $mail->CharSet = 'UTF-8';
                                       $mail->SMTPOptions = array(
                                                                 'ssl' => array(
                                                                     'verify_peer' => false,
@@ -194,14 +190,17 @@ class Ucm200Controller extends Controller
                                                                 )
                                                             );
                                       $mail->setFrom($get_setting_mail->Username, 'From Department Financial');
-                                      $mail->addAddress($email_to_addaddress, 'hello');             // Add a recipient
-                                         $mail->addAddress($email_cc_addCC, 'hello');                  // Add a recipient
+                                      $mail->addAddress($email_to_addaddress, $nameemail);             // Add a recipient
+                                      $mail->addAddress($email_cc_addCC, $nameemail);                  // Add a recipient
                                       $mail->isHTML(true);                                              // Set email format to HTML
                                       $mail->Subject = $Subject;
                                       $mail->Body    = $AreaBody;
                                       $mail->send();
+
+                                      $message = 'Message has been sent';
+                                      $this->send_log_database($student_id,$parent_customer_id,$email_to_addaddress,$email_cc_addCC,$message,$Subject,$AreaBody,'1');
                                       return response()->json([
-                                                'message' => 'Message has been sent',
+                                                'message' => $message,
                                                 'activity' => '1',
                                                 'name' => $name,
                                                 'sur_name' => $sur_name,
@@ -211,8 +210,10 @@ class Ucm200Controller extends Controller
                                                 'AreaBody' => $AreaBody
                                               ]);
                                   } catch (Exception $e) {
+                                      $message = 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo;
+                                      $this->send_log_database($student_id,$parent_customer_id,$email_to_addaddress,$email_cc_addCC,$message,$Subject,$AreaBody,'0');
                                       return response()->json([
-                                                  'message' => 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo,
+                                                  'message' => $message,
                                                   'activity' => '0',
                                                   'name' => $name,
                                                   'sur_name' => $sur_name,
@@ -222,6 +223,25 @@ class Ucm200Controller extends Controller
                                                   'AreaBody' => $AreaBody
                                               ]);
                                   }
+  }
+
+  public function send_log_database($student_id,$parent_customer_id,$email_to_addaddress,$email_cc_addCC,$message,$Subject,$AreaBody,$activity){
+          DB::table('tb_log_email')->insert([
+            'student_id' => $student_id,
+            'parent_customer_id' => $parent_customer_id,
+            'email_to_send' => $email_to_addaddress,
+            'email_cc' => $email_cc_addCC,
+            'Status_send' => $message,
+            'setFrom_subject' => $Subject,
+            'Set_body' => $AreaBody,
+            'status' => $activity
+          ]);
+  }
+
+  public function logsendmail(){
+    $get_log_email = DB::table('tb_log_email')->get();
+    return view('admin.ucm200.logsendemail')
+            ->with('log_email',$get_log_email);
   }
 
 
