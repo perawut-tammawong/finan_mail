@@ -72,6 +72,7 @@ Compose New Message
                               </div>
                <div class="form-group">
                  <input class="form-control" name="txtSubject" id="txtSubjectmail" value="{{ $setFrom_subject }}" placeholder="Subject:">
+                 <input type="hidden" name="txtTermID" id="txtTermID" value="{{$term_id}}" />
                </div>
                <div class="form-group">
                    <textarea id="compose-textarea" name="txtAreaBody" class="form-control" style="height: 900px">{{ $Set_body }}
@@ -121,7 +122,7 @@ Compose New Message
        </div>
        <div class="modal-footer justify-content-between">
          <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-         <a href="{{ url('logsendemail') }}"><button type="button" class="btn btn-primary" >ตรวจสอบข้อมูลการจัดส่งอีเมลล์</button></a>
+         <a href="{{ url('logsendmail') }}/{{ $term_id }}"><button type="button" class="btn btn-primary" >ตรวจสอบข้อมูลการจัดส่งอีเมลล์</button></a>
        </div>
      </div>
      <!-- /.modal-content -->
@@ -170,13 +171,14 @@ function student_send_id(){
     $.ajax({url: "{{ url('frm_send_real_email') }}",
        data: { student_id:item,
               txtSubject:$('#txtSubjectmail').val(),
-              txtAreaBody:$('#compose-textarea').val()
+              txtAreaBody:$('#compose-textarea').val(),
+              txtTerm:$('#txtTermID').val()
               },
        success: function(result){
           if(result.message!=null){
               list_count_email += 1;
-              increase += Math.round(sum_send_mail); 
-              if(increase>=99){ increase=100; }
+              increase += Math.round(sum_send_mail);
+              if(increase>=95){ increase=100; }
 
             persent_show="width:"+increase+"%";
 
@@ -189,9 +191,6 @@ function student_send_id(){
           }
           console.log(result);
        }});
-           // student_id:item,
-           // txtSubject:$('#txtSubjectmail').val(),
-           // txtAreaBody:$('#compose-textarea').val()
   }
 
 

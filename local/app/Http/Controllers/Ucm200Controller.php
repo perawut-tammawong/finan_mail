@@ -134,6 +134,7 @@ class Ucm200Controller extends Controller
                   ->with('get_student',$get_student)
                   ->with('year',$get_year->year)
                   ->with('term',$get_term->term)
+                  ->with('term_id',$get_term->term_id)
                   ->with('idterm',$idterm);
   }
 
@@ -163,12 +164,13 @@ class Ucm200Controller extends Controller
                                       ->select('parent_customer_id','name','sur_name','email_to_addaddress','email_cc_addCC')
                                       ->where('parent_customer_id','=',$get_profile->parent_customer_id)
                                       ->first();
-                  $result = $this->send_email_script($get_profile->student_id,$get_Parent->parent_customer_id,$get_Parent->name,$get_Parent->sur_name,$get_Parent->email_to_addaddress,$get_Parent->email_cc_addCC,$request->input('txtSubject'),$request->input('txtAreaBody'));
+                  // return $request->input('txtTerm');
+                  $result = $this->send_email_script($get_profile->student_id,$get_Parent->parent_customer_id,$get_Parent->name,$get_Parent->sur_name,$get_Parent->email_to_addaddress,$get_Parent->email_cc_addCC,$request->input('txtSubject'),$request->input('txtAreaBody'),$request->input('txtTerm'));
                   return $result;
 
   }
 
-  public function send_email_script($student_id,$parent_customer_id,$name,$sur_name,$email_to_addaddress,$email_cc_addCC,$Subject,$AreaBody){
+  public function send_email_script($student_id,$parent_customer_id,$name,$sur_name,$email_to_addaddress,$email_cc_addCC,$Subject,$AreaBody,$txtTerm){
             $get_setting_mail = DB::table('tb_settingmail')->where('settingemail_id','=','1')->first();
             $nameemail = "คุณ ".$name." ".$sur_name;
             $mail = new PHPMailer(true);
@@ -198,7 +200,7 @@ class Ucm200Controller extends Controller
                                       $mail->send();
 
                                       $message = 'Message has been sent';
-                                      $this->send_log_database($student_id,$parent_customer_id,$email_to_addaddress,$email_cc_addCC,$message,$Subject,$AreaBody,'1');
+                                      $this->send_log_database($student_id,$parent_customer_id,$email_to_addaddress,$email_cc_addCC,$message,$Subject,$AreaBody,'1',$txtTerm);
                                       return response()->json([
                                                 'message' => $message,
                                                 'activity' => '1',
@@ -225,7 +227,7 @@ class Ucm200Controller extends Controller
                                   }
   }
 
-  public function send_log_database($student_id,$parent_customer_id,$email_to_addaddress,$email_cc_addCC,$message,$Subject,$AreaBody,$activity){
+  public function send_log_database($student_id,$parent_customer_id,$email_to_addaddress,$email_cc_addCC,$message,$Subject,$AreaBody,$activity,$txtTerm){
           DB::table('tb_log_email')->insert([
             'student_id' => $student_id,
             'parent_customer_id' => $parent_customer_id,
@@ -234,15 +236,33 @@ class Ucm200Controller extends Controller
             'Status_send' => $message,
             'setFrom_subject' => $Subject,
             'Set_body' => $AreaBody,
-            'status' => $activity
+            'status' => $activity,
+            'term_id' => $txtTerm
           ]);
   }
 
-  public function logsendmail(){
-    $get_log_email = DB::table('tb_log_email')->get();
+  public function logsendmail($idterm){
+                        $get_log_email = DB::table('tb_log_email')
+                                            ->where('term_id','=',$idterm)
+                                            ->get();
+                        $get_term = DB::table('tb_term')
+                                            ->select('term_id','term','year_id')
+                                            ->where('term_id','=',$idterm)
+                                            ->where('is_enable','=',1)
+                                            ->where('is_delete','=',0)
+                                            ->first();
+                        $get_year = DB::table('tb_year')
+                                            ->select('year_id','year')
+                                            ->where('year_id','=',$get_term->year_id)
+                                            ->where('is_delete','=',0)
+                                            ->first();
     return view('admin.ucm200.logsendemail')
-            ->with('log_email',$get_log_email);
+            ->with('log_email',$get_log_email)
+            ->with('year',$get_year->year)
+            ->with('term',$get_term->term)
+            ->with('term_id',$get_term->term_id);
   }
+
 
 
 }

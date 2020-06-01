@@ -1,6 +1,45 @@
 @extends('admin.home')
 @section('nav_slide_bar_student')
-
+<li class="nav-item has-treeview">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-circle"></i>
+    <p>
+      Stu. Year {{ $year }} / {{ $term }}
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{ url('studentmanagement') }}/{{ $term_id }}" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>รายชื่อ Stu. Year {{ $year }} / {{ $term }}</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addstudent">
+        <i class="far fa-circle nav-icon"></i>
+        <p>เพิ่มข้อมูลนักเรียน</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('payterm') }}/{{ $term_id }}" class="nav-link" >
+        <i class="far fa-circle nav-icon"></i>
+        <p>การชำระเงินค่าเรียน</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('sendemailtoparent_stu') }}/{{ $term_id }}" class="nav-link" >
+        <i class="far fa-circle nav-icon"></i>
+        <p>การส่งอีเมลล์แก่ผู้เรียน</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('logsendmail') }}/{{ $term_id }}" class="nav-link" >
+        <i class="far fa-circle nav-icon"></i>
+        <p>บันทึกส่งอีเมลล์</p>
+      </a>
+    </li>
+  </ul>
 @endsection
 @section('head')
 Email for send to parent

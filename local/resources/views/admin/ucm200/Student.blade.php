@@ -52,15 +52,21 @@
       </a>
     </li>
     <li class="nav-item">
+      <a href="{{ url('payterm') }}/{{ $term_id }}" class="nav-link" >
+        <i class="far fa-circle nav-icon"></i>
+        <p>การชำระเงินค่าเรียน</p>
+      </a>
+    </li>
+    <li class="nav-item">
       <a href="{{ url('sendemailtoparent_stu') }}/{{ $term_id }}" class="nav-link" >
         <i class="far fa-circle nav-icon"></i>
         <p>การส่งอีเมลล์แก่ผู้เรียน</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addstudent">
+      <a href="{{ url('logsendmail') }}/{{ $term_id }}" class="nav-link" >
         <i class="far fa-circle nav-icon"></i>
-        <p>บันทึกการชำระเงินค่าเรียน</p>
+        <p>บันทึกส่งอีเมลล์</p>
       </a>
     </li>
   </ul>
@@ -294,6 +300,21 @@ $('#select-all').click(function(event) {
             this.checked = false;
         });
     }
+});
+
+$(function () {
+  $("#example1").DataTable({
+    "responsive": true,
+  });
+  $('#example2').DataTable({
+    "paging": true,
+    "lengthChange": true,
+    "searching": true,
+    "ordering": true,
+    "info": true,
+    "autoWidth": false,
+    "responsive": true,
+  });
 });
 
 $(function () {

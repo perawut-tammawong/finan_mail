@@ -25,10 +25,20 @@ class Ucm500Controller extends Controller
                                     ->where('is_delete','=',0)
                                     ->orderby('term_id','asc')
                                     ->get();
+                    foreach($get_term[$gy->year] as $gt){
+                       $get_student[$gt->term_id] = DB::table('tb_student')
+                                                  ->where('term_id','=',$gt->term_id)
+                                                  ->where('is_enable','=',1)
+                                                  ->where('is_delete','=',0)
+                                                  ->count();
+                       // dd($gt->term_id);
+                    }
       }
+      // dd($get_student[]);
       return view('admin.ucm500.year')
               ->with('year', $get_year)
-              ->with('term', $get_term);
+              ->with('term', $get_term)
+              ->with('student_count',$get_student);
     }
 
     public function addyearnew(Request $request)

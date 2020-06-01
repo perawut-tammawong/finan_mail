@@ -1,6 +1,45 @@
 @extends('admin.home')
 @section('nav_slide_bar_student')
-
+<li class="nav-item has-treeview">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-circle"></i>
+    <p>
+      Stu. Year {{ $year }} / {{ $term }}
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{ url('studentmanagement') }}/{{ $term_id }}" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>รายชื่อ Stu. Year {{ $year }} / {{ $term }}</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-toggle="modal" data-target="#modal-addstudent">
+        <i class="far fa-circle nav-icon"></i>
+        <p>เพิ่มข้อมูลนักเรียน</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('payterm') }}/{{ $term_id }}" class="nav-link" >
+        <i class="far fa-circle nav-icon"></i>
+        <p>การชำระเงินค่าเรียน</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('sendemailtoparent_stu') }}/{{ $term_id }}" class="nav-link" >
+        <i class="far fa-circle nav-icon"></i>
+        <p>การส่งอีเมลล์แก่ผู้เรียน</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ url('logsendmail') }}/{{ $term_id }}" class="nav-link" >
+        <i class="far fa-circle nav-icon"></i>
+        <p>บันทึกส่งอีเมลล์</p>
+      </a>
+    </li>
+  </ul>
 @endsection
 @section('head')
 Compose New Message
@@ -19,22 +58,33 @@ Compose New Message
           <table id="example2" class="table table-bordered table-striped">
             <thead>
             <tr>
-              <th>Select All <br /> <input type="checkbox" name="select-all" id="select-all" /></th>
-              <th>รหัสนักเรียน<br /> (iSams)</th>
-              <th>ชื่อ<br />Name</th>
-              <th>นามสกุล<br />Surname</th>
-              <th>ชื่อเล่น<br />Nickname</th>
-              <th >แก้ไข<br />Edit</th>
-              <th>เวลาแก้ไข<br />Update At</th>
+              <th>หมายเลขรายการ</th>
+              <th>รหัสนักเรียน<br /> iSams Student</th>
+              <th>อีเมลล์ที่ส่งออก<br />Email To send</th>
+              <th>อีเมลล์ทีแจ้งรับทราบ<br />email To cc</th>
+              <th>หัวข้อที่ส่งอีเมลล์<br />email Subject</th>
+              <th>เนื้อหาที่ส่งอีเมลล์ <br />email Body</th>
+              <th>สถานะการจัดส่งอีเมลล์ <br />status</th>
+              <th>รายละเอียดปัญหา <br />Status send</th>
+              <th>เวลาที่สร้าง<br />Create At</th>
             </tr>
             </thead>
                   <tbody>
+                    <?php foreach($log_email as $log){ ?>
+                    <tr>
+                      <td>{{ $log->log_email_id }}</td>
+                      <td>{{ $log->student_id }}</td>
+                      <td>{{ $log->email_to_send }}</td>
+                      <td>{{ $log->email_cc }}</td>
+                      <td>{{ $log->setFrom_subject }}</td>
+                      <td>{{ $log->Set_body }}</td>
+                      <td>{{ $log->status }}</td>
+                      <td>{{ $log->Status_send }}</td>
+                      <td>{{ $log->create_at }}</td>
+                    </tr>
+                  <?php } ?>
                   </tbody>
           </table>
-          <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-sletemplate_email" >กดเพื่อเลือก Template</button>
-           </div>
-
         </div>
       </div>
     </div>
@@ -107,5 +157,20 @@ Compose New Message
 
 @endsection
 @section('javascript_below')
-
+<script>
+$(function () {
+  $("#example1").DataTable({
+    "responsive": true,
+  });
+  $('#example2').DataTable({
+    "paging": true,
+    "lengthChange": true,
+    "searching": true,
+    "ordering": true,
+    "info": true,
+    "autoWidth": false,
+    "responsive": true,
+  });
+});
+</script>
 @endsection

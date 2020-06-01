@@ -35,7 +35,7 @@ Route::get('editstudent', 'Ucm200Controller@editstudent');
 Route::get('sendemailtoparent_stu/{idterm}', 'Ucm200Controller@sendemailtoparent_stu');
 Route::get('frm_send_template_mail', 'Ucm200Controller@frm_send_template_mail');
 Route::get('frm_send_real_email', 'Ucm200Controller@frm_send_real_email');
-Route::get('logsendmail', 'Ucm200Controller@logsendmail');
+Route::get('logsendmail/{idterm}', 'Ucm200Controller@logsendmail');
 
 Route::get('for_sendmail', 'Ucm300Controller@index');
 Route::get('seeting_email', 'Ucm300Controller@setting_email');
@@ -50,3 +50,6 @@ Route::get('delete_email', 'Ucm300Controller@delete_email');
 
 Route::get('addfield', 'Ucm300Controller@addfield');
 Route::get('seefield/{id}', 'Ucm300Controller@seefield');
+
+Route::get('payterm/{id}','Ucm400Controller@index');
+Route::get('payupdatesuccess/{id}','Ucm400Controller@payupdatesuccess');

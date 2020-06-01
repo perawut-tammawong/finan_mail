@@ -21,7 +21,6 @@ foreach ($year as $y) {
               <!-- <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
                   Launch Default Modal
                 </button> -->
-
               <!-- <span class="info-box-number">1,410</span> -->
             </div>
             <!-- /.info-box-content -->
@@ -51,14 +50,13 @@ foreach ($year as $y) {
             <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">ภาคเรียนที่ <?php echo $t->term; ?>&nbsp;<?php echo $t->description; ?></span>
+              <span class="info-box-text">ภาคเรียนที่ <?php //echo $t->term; ?>&nbsp;<?php //echo $t->description; ?></span>
               <a href="{{ url('studentmanagement') }}/{{ $t->term_id }}" style="color:#ffffff;"><span class="info-box-text mousechange">เข้าสู่การจัดการรายชื่อนักเรียน</span></a>
-              <!-- <span class="info-box-number">จำนวนนักเรียน 41,410</span> -->
-
               <div class="progress">
                 <!-- <div class="progress-bar" style="width: 70%"></div> -->
               </div>
               <span class="progress-description">
+                <span class="info-box-number">จำนวนนักเรียน <?php echo $student_count[$t->term_id]; ?> คน</span>
                 <!-- 70% จำนวนนักเรียนที่ชำระเงิน -->
               </span>
               <br />
